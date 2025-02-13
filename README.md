@@ -42,7 +42,7 @@ This project is designed to automate irrigation using an **ESP32 NodeMCU DevKit 
 ## 📂 **Project Structure**  
 | ESP32-Smart-Irrigation  |
 |-------------------------|
-
+| ![Design](docs/desing-esp32.jpg)|
 
 
 
