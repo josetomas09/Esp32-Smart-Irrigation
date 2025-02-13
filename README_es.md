@@ -42,6 +42,7 @@ Este proyecto está diseñado para automatizar el riego utilizando un **ESP32 No
 ## 📂 **Estructura del Proyecto**  
 | ESP32-Smart-Irrigation  |
 |-------------------------|  
+| ![Design](docs/desing-esp32.jpg)|
 
 ---
 
