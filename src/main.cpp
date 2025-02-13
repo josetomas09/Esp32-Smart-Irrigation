@@ -1,18 +1,28 @@
-#include <Arduino.h>
+#include <Sensor.h>
 
-// put function declarations here:
-int myFunction(int, int);
+Sensor tempSensor(5, DHT11_SENSOR);              // Sensor type DHT11 in GPIO 5
+Sensor magneticSensor(4, MAGNETIC_SENSOR);       // Sensor type MAGNETIC in GPIO 4
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+    Serial.begin(115200);
+    delay(1000);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+    DHTData dhtData = tempSensor.readData();
+    
+    if (dhtData.temperature != -1.0 && dhtData.humidity != -1.0) {
+        Serial.println("Temperatura: " + String(dhtData.temperature) + " °C");
+        Serial.println("Humedad: " + String(dhtData.humidity) + " %");
+    } else {
+        Serial.println("Error al leer el sensor DHT11.");
+    }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+    if(magneticSensor.isTriggered() == HIGH){
+        Serial.println("Porton ABIERTO");
+    }else{
+        Serial.println("Porton CERRADO");
+    }
+
+    delay(2000);
 }
