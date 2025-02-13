@@ -22,7 +22,6 @@ class Sensor{
     
         DHTData readData();
         bool isTriggered();
-        uint8_t getPin() const;
     
     protected:
         uint8_t pin;
