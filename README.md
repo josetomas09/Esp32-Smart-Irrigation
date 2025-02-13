@@ -26,9 +26,9 @@ This project is designed to automate irrigation using an **ESP32 NodeMCU DevKit 
 ## 🛠️ **Hardware Components**  
 | Component  | ESP32 PinOut |
 |------------|----------|
-| **Relay 1** | GPIO 12 |
-| **Relay 2** | GPIO 13 |
-| **Relay 3** | GPIO 14 |
+| **Relay 1** | GPIO 13 |
+| **Relay 2** | GPIO 14 |
+| **Relay 3** | GPIO 12 |
 | **Relay 4** | GPIO 15 |
 | **Relay 5** | GPIO 19 |
 | **Relay 6** | GPIO 18 |
