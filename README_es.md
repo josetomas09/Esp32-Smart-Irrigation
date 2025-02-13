@@ -26,9 +26,9 @@ Este proyecto está diseñado para automatizar el riego utilizando un **ESP32 No
 ## 🛠️ **Componentes de Hardware**  
 | Componente  | Pin en ESP32 |
 |------------|----------|
-| **Relé 1** | GPIO 12 |
-| **Relé 2** | GPIO 13 |
-| **Relé 3** | GPIO 14 |
+| **Relé 1** | GPIO 13 |
+| **Relé 2** | GPIO 14 |
+| **Relé 3** | GPIO 12 |
 | **Relé 4** | GPIO 15 |
 | **Relé 5** | GPIO 19 |
 | **Relé 6** | GPIO 18 |
