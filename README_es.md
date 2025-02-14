@@ -54,16 +54,16 @@ Este proyecto requiere información sensible como **credenciales WiFi** y **clav
 #ifndef CONFIG_H
 #define CONFIG_H
 
-// WiFi Credentials
-#define WIFI_SSID "YourSSID"
-#define WIFI_PASSWORD "YourPassword"
+#define BLYNK_TEMPLATE_ID "TuID"
+#define BLYNK_TEMPLATE_NAME "TuName"
+#define BLYNK_AUTH_TOKEN "TuKey"
 
-// Blynk Key
-#define BLYNK_TEMPLATE_ID "YourID"
-#define BLYNK_TEMPLATE_NAME "YourName"
+// Credenciales WiFi
+#define WIFI_SSID "TuSSID"
+#define WIFI_PASSWORD "TuPassword"
 
-// ezTime Config
-#define TIMEZONE "YourTimeZone" // In this format Pacific/NewZealand/Auckland
+// Configuravion ezTime
+#define TIMEZONE "TuTimeZone" // En este formato Pacific/NewZealand/Auckland
 
 #endif
 ```

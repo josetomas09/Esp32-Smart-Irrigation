@@ -29,7 +29,6 @@ bool Communication::isWifiConnected(){
     return WiFi.status() == WL_CONNECTED;
 }
 
-// 🔥 Implementación de `connectBlynk()` aquí para evitar errores de "undefined reference"
 void Communication::connectBlynk() {
     Blynk.begin(BLYNK_AUTH_TOKEN, WIFI_SSID, WIFI_PASSWORD);
 

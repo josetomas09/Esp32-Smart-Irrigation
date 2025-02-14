@@ -55,15 +55,15 @@ This project requires sensitive information like **WiFi credentials** and **Blyn
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#define BLYNK_TEMPLATE_ID "YourID"
+#define BLYNK_TEMPLATE_NAME "YourName"
+#define BLYNK_AUTH_TOKEN "YourKey"
+
 // WiFi Credentials
 #define WIFI_SSID "YourSSID"
 #define WIFI_PASSWORD "YourPassword"
 
-// Blynk Key
-#define BLYNK_TEMPLATE_ID "YourID"
-#define BLYNK_TEMPLATE_NAME "YourName"
-
-// ezTime Config
+// ezTime config
 #define TIMEZONE "YourTimeZone" // In this format Pacific/NewZealand/Auckland
 
 #endif
