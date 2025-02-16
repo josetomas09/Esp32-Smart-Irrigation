@@ -62,8 +62,9 @@ Este proyecto requiere información sensible como **credenciales WiFi** y **clav
 #define WIFI_SSID "TuSSID"
 #define WIFI_PASSWORD "TuPassword"
 
-// Configuravion ezTime
-#define TIMEZONE "TuTimeZone" // En este formato Pacific/NewZealand/Auckland
+// NTP Config
+#define ntpServer = "pool.ntp.org";
+const long gmtOffset_SEC = () * 3600; // Dentro de los parentesis coloca tu diferencia horaria con la hora UTC, ej: Buenos Aires = GMT -3.
 
 #endif
 ```

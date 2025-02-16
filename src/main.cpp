@@ -1,6 +1,9 @@
-#include <Sensor.h>
-#include <Relay.h>
 #include <Communication.h>
+#include <RTC.h>
+#include <Relay.h>
+#include <Sensor.h>
+
+RTCManager rtc;
 
 Sensor tempSensor(5, DHT11_SENSOR);
 Sensor magneticSensor(4, MAGNETIC_SENSOR);
@@ -11,16 +14,19 @@ Relay relay3(12);
 
 void setup() {
     Serial.begin(115200);
+
     Communication::begin();
+    rtc.begin();
+    rtc.syncWiFi();
+
     delay(1000);
 }
 
 void loop() {
-
-    Communication::runBlynk();
+    // Communication::runBlynk();
 
     DHTData dhtData = tempSensor.readData();
-    
+
     if (dhtData.temperature != -1.0 && dhtData.humidity != -1.0) {
         Serial.println("Temperatura: " + String(dhtData.temperature) + " °C");
         Serial.println("Humedad: " + String(dhtData.humidity) + " %");
@@ -28,13 +34,15 @@ void loop() {
         Serial.println("Error al leer el sensor DHT11.");
     }
 
-    if(magneticSensor.isTriggered() == HIGH){
+    if (magneticSensor.isTriggered() == HIGH) {
         Serial.println("Porton ABIERTO");
-    }else{
+    } else {
         Serial.println("Porton CERRADO");
     }
 
     delay(3000);
+
+    // --------------------------------------------------
 
     relay1.turnOn();
     relay2.turnOn();
@@ -47,7 +55,11 @@ void loop() {
     delay(3000);
 
     Serial.print("WiFi connected: ");
-    Serial.println(Communication::isWifiConnected() ? "True": "False");
+    Serial.println(Communication::isWifiConnected() ? "True" : "False");
+
+    // --------------------------------------------------
+
+    rtc.printDateTime();
 
     delay(1000);
 }

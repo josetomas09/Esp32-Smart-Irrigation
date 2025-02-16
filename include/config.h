@@ -9,7 +9,8 @@
 #define WIFI_SSID "Casa"
 #define WIFI_PASSWORD "20joseluis23"
 
-// ezTime config
-#define TIMEZONE "America/Argentina/Buenos_Aires"
+// NTP Config
+#define ntpServer "ar.pool.ntp.org"
+const long gmtOffset_SEC = -3 * 3600;
 
 #endif

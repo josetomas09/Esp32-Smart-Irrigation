@@ -63,8 +63,9 @@ This project requires sensitive information like **WiFi credentials** and **Blyn
 #define WIFI_SSID "YourSSID"
 #define WIFI_PASSWORD "YourPassword"
 
-// ezTime config
-#define TIMEZONE "YourTimeZone" // In this format Pacific/NewZealand/Auckland
+// NTP Config
+#define ntpServer = "pool.ntp.org";
+const long gmtOffset_SEC = () * 3600; // Inside the parentheses put your time difference with UTC time, ej: Buenos Aires = GMT -3.
 
 #endif
 ```

@@ -5,28 +5,24 @@
 #include <DHT.h>
 #include <DHT_U.h>
 
-enum SensorType{
-    DHT11_SENSOR,
-    MAGNETIC_SENSOR
-};
+enum SensorType { DHT11_SENSOR, MAGNETIC_SENSOR };
 
-struct DHTData{
+struct DHTData {
     float temperature;
     float humidity;
 };
 
+class Sensor {
+   public:
+    Sensor(uint8_t pin, SensorType type);
 
-class Sensor{
-    public:
-        Sensor(uint8_t pin, SensorType type);
-    
-        DHTData readData();
-        bool isTriggered();
-    
-    protected:
-        uint8_t pin;
-        SensorType type;
-        DHT dht;
+    DHTData readData();
+    bool isTriggered();
+
+   protected:
+    uint8_t pin;
+    SensorType type;
+    DHT dht;
 };
 
 #endif
