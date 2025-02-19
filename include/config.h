@@ -6,8 +6,8 @@
 #define BLYNK_AUTH_TOKEN "aTv-I8Ypdyf9wFmFaFgrYWrEuF18Ht0y"
 
 // WiFi Credentials
-#define WIFI_SSID "Casa"
-#define WIFI_PASSWORD "20joseluis23"
+#define WIFI_SSID "Grangetto-FibraOptica-ITC"
+#define WIFI_PASSWORD "20joseluis16"
 
 // NTP Config
 #define ntpServer "ar.pool.ntp.org"

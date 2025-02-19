@@ -1,21 +1,33 @@
 #include "RTC.h"
+#include <Communication.h>
+#include "../../include/config.h"  // Include config.h for acces to WIFI_SSID and WIFI_PASSWORD
 
 RTCManager::RTCManager() {}
 
 void RTCManager::begin() {
     if (!rtc.begin()) {
-        Serial.println("⚠️ No se encontró el módulo RTC DS3231");
+        Serial.println("⚠️ RTC DS3231 module not found");
         return;
     };
 
     if (rtc.lostPower()) {
-        Serial.println("⚠️ El RTC perdió energía, sincronizando...");
+        Serial.println("⚠️ The RTC lost power, synchronizing...");
         syncWiFi();
     };
 };
 
 bool RTCManager::syncWiFi() {
-    Communication::connectWiFi();
+    if (!Communication::isWifiConnected()) {
+        Serial.println("No WiFi connected. Trying to connect...");
+        Communication::begin();
+        delay(2000);
+
+        if (!Communication::isWifiConnected()) {
+            Serial.println("❌ Could not connect to WiFi");
+            return false;
+        }
+    }
+
     configTime(gmtOffset_SEC, 0, ntpServer);
     delay(2000);
 
@@ -29,11 +41,10 @@ bool RTCManager::syncWiFi() {
 
     if (retries >= 10) {
         Serial.println("Error: Could not sync time after multiple attempts.");
-        Communication::disconnectWifi();
         return false;
     };
 
-    // Save the Date and Time on RTC DS3231.
+    // Save the time in the RTC DS3231.
     int ye = timeInfo.tm_year + 1900;
     int mo = timeInfo.tm_mon + 1;
     int da = timeInfo.tm_mday;
@@ -41,8 +52,6 @@ bool RTCManager::syncWiFi() {
     int ho = timeInfo.tm_hour;
     int mi = timeInfo.tm_min;
     int se = timeInfo.tm_sec;
-
-    delay(100);
 
     rtc.adjust(DateTime(ye, mo, da, ho, mi, se));
 
@@ -52,18 +61,13 @@ bool RTCManager::syncWiFi() {
 
 void RTCManager::printDateTime() {
     DateTime now = rtc.now();
-
     Serial.printf("RTC Date: %02d-%02d-%04d  Time: %02d:%02d:%02d\n", now.day(),
                   now.month(), now.year(), now.hour(), now.minute(),
                   now.second());
-
-    struct tm timeInfo;
-    if (getLocalTime(&timeInfo)) {
-        Serial.printf("NTP Date: %02d-%02d-%04d  Time: %02d:%02d:%02d\n", ye,
-                      mo, da, ho, mi, se);
-    } else {
-        Serial.println("Failed to get NTP time");
-    }
 };
+
+DateTime RTCManager::now() {  
+    return rtc.now();  
+}
 
 bool RTCManager::lostPower() { return rtc.lostPower(); };

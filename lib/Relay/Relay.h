@@ -6,8 +6,8 @@
 class Relay {
    public:
     Relay(uint8_t pin);
-    void turnOn();
-    void turnOff();
+    void on();
+    void off();
     bool isActive();
 
    protected:

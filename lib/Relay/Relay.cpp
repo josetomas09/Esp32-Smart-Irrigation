@@ -5,12 +5,12 @@ Relay::Relay(uint8_t pin) : pin(pin), state(false) {
     digitalWrite(pin, HIGH);
 };
 
-void Relay::turnOn() {
+void Relay::on() {
     digitalWrite(pin, HIGH);
     state = true;
 };
 
-void Relay::turnOff() {
+void Relay::off() {
     digitalWrite(pin, LOW);
     state = false;
 };

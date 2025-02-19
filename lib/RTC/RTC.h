@@ -15,6 +15,7 @@ class RTCManager {
     bool syncWiFi();
     void printDateTime();
     bool lostPower();
+    DateTime now();
 
    private:
     RTC_DS3231 rtc;
