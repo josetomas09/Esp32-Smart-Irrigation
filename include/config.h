@@ -1,9 +1,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define BLYNK_TEMPLATE_ID "TMPL2zbMQQogm"
-#define BLYNK_TEMPLATE_NAME "Garaje ESP32"
-#define BLYNK_AUTH_TOKEN "aTv-I8Ypdyf9wFmFaFgrYWrEuF18Ht0y"
+#define BLYNK_TEMPLATE_ID "TMPL2_1d50D2s"
+#define BLYNK_TEMPLATE_NAME "Smart Irrigation Garaje"
+#define BLYNK_AUTH_TOKEN "FFpWXZbVi_lb8A2TbVkcSf-ie1Dv1SWi"
+
 
 // WiFi Credentials
 #define WIFI_SSID "Grangetto-FibraOptica-ITC"
