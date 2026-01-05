@@ -5,3 +5,6 @@
 .vscode/launch.json
 .vscode/ipch
 .include/config.h
+
+# Notas personales
+lib/lights/README.md

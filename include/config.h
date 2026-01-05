@@ -7,8 +7,8 @@
 
 
 // WiFi Credentials
-#define WIFI_SSID "Grangetto-FibraOptica-ITC"
-#define WIFI_PASSWORD "20joseluis16"
+#define WIFI_SSID "TP-Link_CF0E"
+#define WIFI_PASSWORD "garaje2023"
 
 // NTP Config
 #define ntpServer "ar.pool.ntp.org"
