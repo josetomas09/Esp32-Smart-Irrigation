@@ -30,7 +30,7 @@ IrrigationController::IrrigationController(RTC_DS3231* rtcModule)
     : rtc(rtcModule), irrigationRelayCount(0), manualMode(false), isWatering(false) {
     
     // Inicializar array de relays de riego
-    for (int i = 0; i < MAX_IRRIGATION_RELAYS; i++) {
+    for(int i = 0; i < MAX_IRRIGATION_RELAYS; i++) {
         irrigationRelays[i] = nullptr;
     }
     
@@ -40,7 +40,7 @@ IrrigationController::IrrigationController(RTC_DS3231* rtcModule)
 }
 
 bool IrrigationController::addIrrigationRelay(Relay* relay) {
-    if (irrigationRelayCount >= MAX_IRRIGATION_RELAYS) {
+    if(irrigationRelayCount >= MAX_IRRIGATION_RELAYS) {
         Serial.println("Máximo de relays de riego alcanzado");
         return false;
     }
@@ -62,17 +62,17 @@ bool IrrigationController::addIrrigationRelay(Relay* relay) {
 void IrrigationController::begin() {
     Serial.println("=== IrrigationController ===");
     
-    if (irrigationRelayCount == 0) {
+    if(irrigationRelayCount == 0) {
         Serial.println("ADVERTENCIA: No hay relays de riego configurados");
-    } else {
+    }else {
         Serial.print("Relays de riego: ");
         Serial.println(irrigationRelayCount);
     }
     
     // Validar RTC
-    if (!rtc->begin()) {
+    if(!rtc->begin()) {
         Serial.println("ERROR: RTC no detectado!");
-    } else {
+    }else {
         DateTime now = rtc->now();
         Serial.print("RTC OK - ");
         Serial.print(now.year());
@@ -90,8 +90,8 @@ void IrrigationController::begin() {
 }
 
 void IrrigationController::startWatering() {
-    for (uint8_t i = 0; i < irrigationRelayCount; i++) {
-        if (irrigationRelays[i] != nullptr) {
+    for(uint8_t i = 0; i < irrigationRelayCount; i++) {
+        if(irrigationRelays[i] != nullptr) {
             irrigationRelays[i]->on();
         }
     }
@@ -100,8 +100,8 @@ void IrrigationController::startWatering() {
 }
 
 void IrrigationController::stopWatering() {
-    for (uint8_t i = 0; i < irrigationRelayCount; i++) {
-        if (irrigationRelays[i] != nullptr) {
+    for(uint8_t i = 0; i < irrigationRelayCount; i++) {
+        if(irrigationRelays[i] != nullptr) {
             irrigationRelays[i]->off();
         }
     }
@@ -115,7 +115,7 @@ long IrrigationController::getCurrentTimeInSecs() {
 }
 
 bool IrrigationController::shouldWaterNow() {
-    if (!schedule.isScheduled) return false;
+    if(!schedule.isScheduled) return false;
     
     DateTime now = rtc->now();
     
@@ -123,7 +123,7 @@ bool IrrigationController::shouldWaterNow() {
     int rtcDay = now.dayOfTheWeek();  // 0=Dom, 1=Lun
     int blynkDay = (rtcDay == 0) ? 7 : rtcDay;
     
-    if (!schedule.activeDays[blynkDay]) {
+    if(!schedule.activeDays[blynkDay]) {
         return false;
     }
     
@@ -131,34 +131,34 @@ bool IrrigationController::shouldWaterNow() {
     long startTarget = schedule.startTimeInSecs;
     long stopTarget = schedule.stopTimeInSecs;
     
-    if (schedule.startAtSunrise) startTarget = sunriseSecs;
-    if (schedule.startAtSunset) startTarget = sunsetSecs;
-    if (schedule.stopAtSunrise) stopTarget = sunriseSecs;
-    if (schedule.stopAtSunset) stopTarget = sunsetSecs;
+    if(schedule.startAtSunrise) startTarget = sunriseSecs;
+    if(schedule.startAtSunset) startTarget = sunsetSecs;
+    if(schedule.stopAtSunrise) stopTarget = sunriseSecs;
+    if(schedule.stopAtSunset) stopTarget = sunsetSecs;
     
     // Si inicio y fin son iguales, no hacer nada
-    if (startTarget == stopTarget) return false;
+    if(startTarget == stopTarget) return false;
     
     long currentSecs = getCurrentTimeInSecs();
     
-    if (startTarget < stopTarget) {
+    if(startTarget < stopTarget) {
         // Caso normal: 08:00 a 18:00
         return (currentSecs >= startTarget && currentSecs < stopTarget);
-    } else {
+    }else {
         // Cruza medianoche: 23:00 a 01:00
         return (currentSecs >= startTarget || currentSecs < stopTarget);
     }
 }
 
 void IrrigationController::update() {
-    if (manualMode) return;
+    if(manualMode) return;
     
     bool shouldBeOn = shouldWaterNow();
     
-    if (shouldBeOn && !isWatering) {
+    if(shouldBeOn && !isWatering) {
         startWatering();
         Serial.println("Activado por Horario");
-    } else if (!shouldBeOn && isWatering) {
+    }else if(!shouldBeOn && isWatering) {
         stopWatering();
         Serial.println("Desactivado por Horario");
     }
@@ -189,12 +189,12 @@ void IrrigationController::setSchedule(long startSecs, long stopSecs) {
 
 void IrrigationController::setStartAtSunrise(bool value) {
     schedule.startAtSunrise = value;
-    if (value) schedule.isScheduled = true;
+    if(value) schedule.isScheduled = true;
 }
 
 void IrrigationController::setStartAtSunset(bool value) {
     schedule.startAtSunset = value;
-    if (value) schedule.isScheduled = true;
+    if(value) schedule.isScheduled = true;
 }
 
 void IrrigationController::setStopAtSunrise(bool value) {
@@ -206,7 +206,7 @@ void IrrigationController::setStopAtSunset(bool value) {
 }
 
 void IrrigationController::setDayActive(int day, bool active) {
-    if (day >= 1 && day <= 7) {
+    if(day >= 1 && day <= 7) {
         schedule.activeDays[day] = active;
     }
 }

@@ -13,7 +13,7 @@ class Relay {
 private:
     uint8_t pin;
     bool state;
-    String name;  // Opcional: nombre descriptivo del relay
+    String name;
 
 public:
     /**

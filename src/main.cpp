@@ -61,7 +61,7 @@ void setup(){
     riego.addIrrigationRelay(&electrovalvula_2);
     riego.begin();
 
-    if (Communication::isWifiConnected){
+    if(Communication::isWifiConnected()){
         Blynk.begin(BLYNK_AUTH_TOKEN, WIFI_SSID, WIFI_PASSWORD);
         delay(1000);
         rtcNTPsync();
@@ -72,7 +72,7 @@ void setup(){
 }
 
 void loop(){
-    if(Communication::isWifiConnected){
+    if(Communication::isWifiConnected()){
          Blynk.run();
     }
     timer.run();
@@ -91,13 +91,13 @@ bool rtcNTPsync(){
 
     struct tm timeInfo;
     uint8_t retries = 0;
-    while (!getLocalTime(&timeInfo) && retries < 20) {
+    while(!getLocalTime(&timeInfo) && retries < 20) {
         Serial.println("Sincronizando NTP...");
         delay(1000);
         retries++;
     };
 
-    if (retries >= 20) {
+    if(retries >= 20) {
         Serial.println("Error: No se pudo sincronizar fecha y hora luego de varios intentos.");
         return false;
     }
@@ -127,7 +127,7 @@ void sendTempAndHum(){
     float temp = dht.readTemperature();
     float humidity = dht.readHumidity();
 
-    if (isnan(temp) || isnan(humidity)) {
+    if(isnan(temp) || isnan(humidity)) {
         Serial.println("Error leyendo sensor DHT11");
         return;
     }
@@ -144,7 +144,7 @@ void sendTempAndHum(){
 // Riego manual
 BLYNK_WRITE(V2) {
     int v = param.asInt();
-    if (v == 1) {
+    if(v == 1) {
         riego.enableManualMode();
     } else {
         riego.disableManualMode();
@@ -158,35 +158,39 @@ BLYNK_WRITE(V3) {
     riego.clearSchedule();
 
     // 1. Configurar horario de inicio
-    if (t.hasStartTime()) {
+    if(t.hasStartTime()) {
         long startSecs = t.getStartHour() * 3600 + t.getStartMinute() * 60 + t.getStartSecond();
         long stopSecs = -1;
         
         // 2. Configurar horario de fin
-        if (t.hasStopTime()) {
+        if(t.hasStopTime()) {
             stopSecs = t.getStopHour() * 3600 + t.getStopMinute() * 60 + t.getStopSecond();
         }
         
-        if (stopSecs != -1) {
+        if(stopSecs != -1) {
             riego.setSchedule(startSecs, stopSecs);
         }
-    } else if (t.isStartSunrise()) {
+    } else if(t.isStartSunrise()) {
         riego.setStartAtSunrise(true);
-    } else if (t.isStartSunset()) {
+    } else if(t.isStartSunset()) {
         riego.setStartAtSunset(true);
     }
 
     // Configurar fin en sunrise/sunset si aplica
-    if (t.isStopSunrise()) {
+    if(t.isStopSunrise()) {
         riego.setStopAtSunrise(true);
-    } else if (t.isStopSunset()) {
+    } else if(t.isStopSunset()) {
         riego.setStopAtSunset(true);
     }
 
     // 3. Configurar días activos
-    for (int i = 1; i <= 7; i++) {
+    for(int i = 1; i <= 7; i++) {
         riego.setDayActive(i, t.isWeekdaySelected(i));
     }
     
     Serial.println("Nueva programación recibida");
+}
+
+BLYNK_READ(V4) {
+    Blynk.virtualWrite(V4, Communication::recivedChar);
 }

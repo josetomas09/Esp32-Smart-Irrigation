@@ -6,9 +6,13 @@
 #include <esp_now.h>
 
 class Communication {
+    
 public:
+    static char recivedChar;
+
     static void begin();
     static bool isWifiConnected();
+    static void onDataReceived(const uint8_t *mac_addr, const uint8_t *data, int8_t data_len);
 };
 
-#endif
+#endif // COMMUNICATION_H
